@@ -1,0 +1,21 @@
+{
+  "name": "tbtc-workshop",
+  "version": "1.0.0",
+  "description": "a workshop for tbtc",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "truffle test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/summa-tx/tbtc-workshop"
+  },
+  "author": "Summa & Keep",
+  "license": "MIT",
+  "dependencies": {
+    "@summa-tx/bitcoin-spv-sol": "^2.1.0"
+  }
+}
