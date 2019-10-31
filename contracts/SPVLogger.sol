@@ -7,9 +7,9 @@ import {BTCUtils} from "@summa-tx/bitcoin-spv-sol/contracts/BTCUtils.sol";
 contract SPVLogger {
 
     event JamesPaid(bytes32 txid);
-    event WhyJamesNotPaid(bytes32 txid, uint8 errorCode);
 
-    bytes public constant JAMES_HASH = hex"";
+    event WhyJamesNotPaid(bytes32 txid, uint8 errorCode);
+    bytes public constant JAMES_HASH = hex"52441f867942deb3581fa0dc795662c67cedb594";
 
     uint8 public constant ERR_BAD_PROOF = 1;
     uint8 public constant ERR_BAD_VIN = 2;
