@@ -7,8 +7,10 @@ import {BTCUtils} from "@summa-tx/bitcoin-spv-sol/contracts/BTCUtils.sol";
 contract SPVLogger {
 
     event JamesPaid(bytes32 txid);
-
     event WhyJamesNotPaid(bytes32 txid, uint8 errorCode);
+
+
+    // tb1q2fzplpnegt0txkql5rw8j4nzce7wmdv54rgj45
     bytes public constant JAMES_HASH = hex"52441f867942deb3581fa0dc795662c67cedb594";
 
     uint8 public constant ERR_BAD_PROOF = 1;
@@ -28,7 +30,7 @@ contract SPVLogger {
             bytes calldata _vout
     ) external returns (bool) {
         bytes32 _txid = BTCUtils.hash256(abi.encodePacked(_version, _vin, _vout, _locktime));
-        
+
         bool _included = _checkInclusion(
             _header,
             _merkleProof,
