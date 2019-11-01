@@ -143,14 +143,14 @@ describe("JamesPays", () => {
 
       const logger = await SPVLogger.new()
       await logger.paysJames(
-        rightProof.bitcoinHeaders,
-        rightProof.merkleProof,
-        rightProof.version,
-        rightProof.txLocktime,
-        rightProof.txIndexInBlock,
+        wrongAmountProof.bitcoinHeaders,
+        wrongAmountProof.merkleProof,
+        wrongAmountProof.version,
+        wrongAmountProof.txLocktime,
+        wrongAmountProof.txIndexInBlock,
         0,
-        rightProof.txInputVector,
-        rightProof.txOutputVector,
+        wrongAmountProof.txInputVector,
+        wrongAmountProof.txOutputVector,
       )
 
       return { logger, startingBlockNumber }
@@ -191,7 +191,7 @@ describe("JamesPays", () => {
         rightProof.version,
         rightProof.txLocktime,
         rightProof.txIndexInBlock,
-        1,
+        0,
         rightProof.txInputVector,
         rightProof.txOutputVector,
       )
@@ -208,7 +208,7 @@ describe("JamesPays", () => {
 
       expect(eventList.length).to.equal(1)
       const txid = eventList[0].args.txid.toString()
-      expect(txid).to.equal("0x9ed54e58276931fb514ebdb7f2e56831663c7c9a9c26c2713147b4d085bd2530")
+      expect(txid).to.equal("0x7f9f9652509e4a55e29dd322821cf3899dbf4636c4604a627b1d76781e356ad2")
     })
 
     it("should not emit a WhyJamesNotPaid", async () => {
@@ -237,7 +237,7 @@ wrongRecipientProof = {
 
 // real tx from testnet bitcoin
 // tx source: https://live.blockcypher.com/btc-testnet/tx/3025bd85d0b4473171c2269c9a7c3c663168e5f2b7bd4e51fb316927584ed59e/
-rightProof = {
+wrongAmountProof = {
   version: '0x02000000',
   tx: '0x02000000000101e11812511b34dc3099e8c3095a15a2d597c4d9584b5bf0d744f239a1d25e03cf01000000171600141bc73fec67b4af381538673b52c92e796de0ae04feffffff02684200000000000016001452441f867942deb3581fa0dc795662c67cedb59448e1d9c701000000160014f17db91e9e0d6e70be7cd5729c4e065902cfac3a02473044022017ff2096ac0b1b626eedcb332dbfd925322e0f05c627e5e5309d95cafcde37360220403459e31e90b69ec6804bc82bc7d24ed5d0f6fa1a06ef000ff88aec34c31b540121028e7995c2f836ee56e3036423f8b6a7fd362d950a96de306ee94d0efec66f4e47b56f1800',
   txIndexInBlock: 1,
@@ -249,5 +249,17 @@ rightProof = {
   txLocktime: '0xb56f1800',
   merkleProof:
    '0xc737b0b3470e8356d6d69cabdcca441ace6dda3bac3b0b005b2f763ac72b0438ec7600227acaa5c112edb57ef0af05d2cecd49dfa8447ee4c4279d9602c0fe5fd4a4650048e81e2e7aa1d48d7e89b25a4006c12a6d0e1a1568beafdcd5bf11da4bb5e8046c94109be3a5bf8401f607d01c8118556f8d24c45481832623945ecd',
+}
+
+// real tx from testnet bitcoin
+// tx source: https://live.blockcypher.com/btc-testnet/tx/d26a351e78761d7b624a60c43646bf9d89f31c8222d39de2554a9e5052969f7f/
+rightProof = {
+  version: '0x02000000',
+  txInputVector: '0x01741c61de230511b42548f00e2bdf54ca8835d0fe9b81b33d2a9b7878bd73398e00000000171600144fa436db0da2e6fb49f12e542c352b4cbbd6f269feffffff',
+  txOutputVector: '0x0240420f000000000016001452441f867942deb3581fa0dc795662c67cedb59491ac1300000000001600144887d1f957eeea5a77df2bf94bc9101e9896c470',
+  txLocktime: '0xb16f1800',
+  merkleProof: '0x7074dc3d25ca0773dfd3f62964909bdbc1260ce9729edac7b94335fd4afd0b381346ce8832f52ef5087c02938225a6a75c28862031b0e341646357c4e635706f4569912095eb0da64b56febfd3339c91caa42f142df227c767e488af915d2f0c',
+  txIndexInBlock: 5,
+  bitcoinHeaders: '0x000000203e7cd1d6db385e8d9becbed75f2f115230857bf7f8311041cfd50000000000001f2979f3e18319de6f38b32231507e9a488e23c948a81691ecd2be390ac331eab8babb5dffff001bbf8ce0eb00e0ff3fd0fccf69562648a0a175fbd7651acaf37ea867c2e2bf10f402f0000000000000207c9fff5737e906fd03d59dae71e43672ec02404d5ba0da9490d7698f354d6593babb5dffff001b60ce6181'
 }
 
