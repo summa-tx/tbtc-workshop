@@ -51,7 +51,7 @@ contract SPVLogger {
 
         // Goal: use BTCUtils to validate the _vout
         bool _validVout = BTCUtils.validateVout(_vout);
-        if (_validVout) {
+        if (!_validVout) {
             emit WhyJamesNotPaid(_txid, ERR_BAD_VOUT);
             return false;
         }
