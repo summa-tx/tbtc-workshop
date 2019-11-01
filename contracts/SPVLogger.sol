@@ -109,7 +109,7 @@ contract SPVLogger {
         // Hint: Solidity doesn't do equality between bytes
         // Use keccak256 to make bytes32 from bytes
 
-        if (keccak256(BytesLib.slice(_output, 9, 3)) != keccak256(hex"160014")) {
+        if (keccak256(BytesLib.slice(_output, 8, 3)) != keccak256(hex"160014")) {
             return false;
         }
 
