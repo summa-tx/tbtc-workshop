@@ -10,6 +10,11 @@ describe("JamesPays", () => {
       const startingBlockNumber = await web3.eth.getBlock('latest').number
 
       const logger = await SPVLogger.new()
+      // Move last byte of vin to vout so the proof passes but the vin/vout are
+      // wrong.
+      let txInputTruncated = wrongRecipientProof.txInputVector.length - 4
+      let txInputEnd = wrongRecipientProof.txInputVector.substring(txInputTruncated)
+
       await logger.paysJames(
         wrongRecipientProof.bitcoinHeaders,
         wrongRecipientProof.merkleProof,
@@ -17,8 +22,8 @@ describe("JamesPays", () => {
         wrongRecipientProof.txLocktime,
         wrongRecipientProof.txIndexInBlock,
         1,
-        "0xDEADBEEF",
-        wrongRecipientProof.txOutputVector,
+        wrongRecipientProof.txInputVector.substring(0, txInputTruncated), // last byte form here to first byte of output
+        "0x" + txInputEnd + wrongRecipientProof.txOutputVector.substring(2),
       )
 
       return { logger, startingBlockNumber }
@@ -44,48 +49,6 @@ describe("JamesPays", () => {
       expect(eventList.length).to.equal(1)
       const errorCode = eventList[0].args.errorCode.toString()
       expect(errorCode).to.equal((await logger.ERR_BAD_VIN()).toString())
-    })
-  })
-
-  describe("when checking a funding proof with bad vout", () => {
-    async function payJames() {
-      const startingBlockNumber = await web3.eth.getBlock('latest').number
-
-      const logger = await SPVLogger.new()
-      await logger.paysJames(
-        wrongRecipientProof.bitcoinHeaders,
-        wrongRecipientProof.merkleProof,
-        wrongRecipientProof.version,
-        wrongRecipientProof.txLocktime,
-        wrongRecipientProof.txIndexInBlock,
-        1,
-        wrongRecipientProof.txInputVector,
-        "0xDEADBEEF",
-      )
-
-      return { logger, startingBlockNumber }
-    }
-
-    it("should not emit a JamesPaid event", async () => {
-      const { logger, startingBlockNumber } = await payJames()
-      const eventList = await logger.getPastEvents(
-        'JamesPaid',
-        { fromBlock: startingBlockNumber, toBlock: 'latest' },
-      )
-
-      expect(eventList.length).to.equal(0)
-    })
-
-    it("should emit a WhyJamesNotPaid event due to bad output", async () => {
-      const { logger, startingBlockNumber } = await payJames()
-      const eventList = await logger.getPastEvents(
-        'WhyJamesNotPaid',
-        { fromBlock: startingBlockNumber, toBlock: 'latest' },
-      )
-
-      expect(eventList.length).to.equal(1)
-      const errorCode = eventList[0].args.errorCode.toString()
-      expect(errorCode).to.equal((await logger.ERR_BAD_VOUT()).toString())
     })
   })
 
