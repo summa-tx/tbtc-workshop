@@ -57,7 +57,7 @@ contract SPVLogger {
         }
 
         // Goal: use BTCUtils to extract the output that PAYS JAMES from the vin
-        bytes memory _output = BTCUtils.extractOutputAtIndex(_vin, _paysJamesIndex);
+        bytes memory _output = BTCUtils.extractOutputAtIndex(_vout, _paysJamesIndex);
 
         bool _shouldPayJames = _paysJames(_output);
         if (!_shouldPayJames) {
