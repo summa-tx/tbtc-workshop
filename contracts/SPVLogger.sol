@@ -20,14 +20,14 @@ contract SPVLogger {
     uint8 public constant ERR_DOES_NOT_PAY_JAMES = 255;
 
     function paysJames(
-            bytes calldata _header,
-            bytes calldata _merkleProof,
-            bytes4 _version,
-            bytes4 _locktime,
-            uint256 _indexInBlock,
-            uint8 _paysJamesIndex,
-            bytes calldata _vin,
-            bytes calldata _vout
+            bytes calldata _header,  // a bitcoin block header
+            bytes calldata _merkleProof,  // a merkle inclusion proof
+            bytes4 _version,  // the bitcoin tx version
+            bytes4 _locktime,  // the bitcoin tx timelock field
+            uint256 _indexInBlock,  // the position of the transaction in its block
+            uint8 _paysJamesIndex,  // the index of the output that PAYS JAMES :D
+            bytes calldata _vin,  // the bitcoin transaction input vector
+            bytes calldata _vout  // the bitcoin transaction output vector
     ) external returns (bool) {
         bytes32 _txid = BTCUtils.hash256(abi.encodePacked(_version, _vin, _vout, _locktime));
 
@@ -56,7 +56,7 @@ contract SPVLogger {
             return false;
         }
 
-        // Goal: use BTCUtils to extract the output from the vin
+        // Goal: use BTCUtils to extract the output that PAYS JAMES from the vin
         bytes memory _output = BTCUtils.extractOutputAtIndex(_vin, _paysJamesIndex);
 
         bool _shouldPayJames = _paysJames(_output);
