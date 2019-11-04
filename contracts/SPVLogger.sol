@@ -51,7 +51,7 @@ contract SPVLogger {
 
         // Goal: use BTCUtils to validate the _vout
         bool _validVout = false;
-        if (_validVout) {
+        if (!_validVout) {
             emit WhyJamesNotPaid(_txid, ERR_BAD_VOUT);
             return false;
         }
@@ -96,6 +96,7 @@ contract SPVLogger {
         //
         // 2 steps:
         // 1. check that it is a witness PKH output
+        //    To do this, check that bytes 8, 9, and 10 are equal to hex"160014"
         // 2. Check that the output hash is equal to the JAMES_HASH variable
         //
         // Hint: Solidity doesn't do equality between bytes
