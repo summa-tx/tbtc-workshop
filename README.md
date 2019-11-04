@@ -3,13 +3,13 @@
 This is a brief exercise on validating SPV Proofs using `bitcoin-spv`. It
 includes one contract (`SPVLogger.sol`) that verifies payments made to James.
 
-Your goal is to make the tests pass by implementing a Bitcoin SPV system. We've
-provided tests,
+Your goal is to implement a Bitcoin SPV system. We've provided tests that
+include a valid proof, and built all the libraries you'll need to evaluate it.
 
 ### Warning
 
 THIS IS NOT INTENDED FOR PRODUCTION AND THE CODE DOES NOT ACCOMPLISH SECURE SPV
-COMMUNICATION
+COMMUNICATION. IT IS FOR EDUCATIONAL PURPOSES ONLY
 
 ### How to play :)
 
