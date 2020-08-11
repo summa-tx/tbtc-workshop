@@ -14,7 +14,7 @@
     "url": "github.com/summa-tx/tbtc-workshop"
   },
   "author": "Summa & Keep",
-  "license": "MIT",
+  "license": "(MIT OR Apache-2.0)",
   "dependencies": {
     "@summa-tx/bitcoin-spv-sol": "^2.1.0"
   },
